@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34622.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharpTestRepo", "FSharpTestRepo\FSharpTestRepo.fsproj", "{9E32E7C2-97C7-4E88-B628-6A34BDCF6A3D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E32E7C2-97C7-4E88-B628-6A34BDCF6A3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E32E7C2-97C7-4E88-B628-6A34BDCF6A3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E32E7C2-97C7-4E88-B628-6A34BDCF6A3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E32E7C2-97C7-4E88-B628-6A34BDCF6A3D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {580F3807-4E7A-4C06-95D1-4794712892B6}
+	EndGlobalSection
+EndGlobal
