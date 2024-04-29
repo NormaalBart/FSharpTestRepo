@@ -77,11 +77,14 @@ let updateBoard (board: Board) (position: FieldPosition) (symbol: Symbol) : Boar
         | Third -> (f1, f2, Taken symbol)
 
     let updatedRows = 
-        rows |> List.mapi (fun i r -> 
-            if i = (match position.RowIndex with | First -> 0 | Second -> 1 | Third -> 2) then 
-                updateRow r position.ColIndex 
-            else r)
-    (updatedRows.[0], updatedRows.[1], updatedRows.[2])
+        rows |> List.mapi (fun index row -> 
+            if index = (match position.RowIndex with 
+                        | First -> 0 
+                        | Second -> 1 
+                        | Third -> 2) then 
+                updateRow row position.ColIndex 
+            else row)
+    (updatedRows[0], updatedRows.[1], updatedRows.[2])
 
 let isValidMove (board: Board) (position: FieldPosition) : bool =
     let (row1, row2, row3) = board
