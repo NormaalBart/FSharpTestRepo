@@ -1,6 +1,25 @@
-﻿type Symbol =
+﻿open System
+
+type Symbol =
     | Cross
     | Nought
+
+type FieldIndex = 
+    | First
+    | Second
+    | Third
+
+type FieldPosition = {
+    RowIndex: FieldIndex;
+    ColIndex: FieldIndex;
+}
+
+let indexToEnum i =
+    match i with
+    | 0 -> Some First
+    | 1 -> Some Second
+    | 2 -> Some Third
+    | _ -> None
 
 let charOfSymbol (symbol: Symbol): char =
     match symbol with
@@ -62,6 +81,16 @@ let findWinner (board: Board) =
     |> List.choose id
     |> List.tryHead    
 
+let moveIndexToPosition (move: int) : Option<FieldPosition> =
+    if move < 1 || move > 9 then None
+    else
+        let rowIndex = (move - 1) / 3
+        let colIndex = (move - 1) % 3
+        match indexToEnum rowIndex, indexToEnum colIndex with
+        | Some r, Some c -> Some { RowIndex = r; ColIndex = c }
+        | _ -> None
+
+
 let isBoardFull (board: Board) = 
     let (row1, row2, row3) = board
     let squares = [row1; row2; row3] |> List.collect (fun (s1, s2, s3) -> [s1; s2; s3])
@@ -70,16 +99,73 @@ let isBoardFull (board: Board) =
         | Empty -> false
         | Taken _ -> true)
 
-let playGame (board: Board) (turn: Symbol) =
+let updateBoard (board: Board) (position: FieldPosition) (symbol: Symbol) : Board =
+    let (row1, row2, row3) = board
+    let rows = [row1; row2; row3]
+
+    let updateRow (f1, f2, f3) col =
+        match col with
+        | First -> (Taken symbol, f2, f3)
+        | Second -> (f1, Taken symbol, f3)
+        | Third -> (f1, f2, Taken symbol)
+
+    let updatedRows = 
+        rows |> List.mapi (fun i r -> 
+            if i = (match position.RowIndex with | First -> 0 | Second -> 1 | Third -> 2) then 
+                updateRow r position.ColIndex 
+            else r)
+    (updatedRows.[0], updatedRows.[1], updatedRows.[2])
+
+let isValidMove (board: Board) (position: FieldPosition) : bool =
+    let (row1, row2, row3) = board
+    let rows = [row1; row2; row3]
+    let rowIndex = match position.RowIndex with
+                   | First -> 0
+                   | Second -> 1
+                   | Third -> 2
+    let colIndex = match position.ColIndex with
+                   | First -> 0
+                   | Second -> 1
+                   | Third -> 2
+    let (f1, f2, f3) = rows.[rowIndex]
+    let field : Option<Field> = match colIndex with
+                                | 0 -> Some f1
+                                | 1 -> Some f2
+                                | 2 -> Some f3
+                                | _ -> None
+    match field with
+    | Some Empty -> true
+    | Some (Taken _) -> false
+    | None -> false
+
+let rec playGame (board: Board) (turn: Symbol) =
     printBoard board
     let winner = findWinner board
-    if winner.IsSome then 
-        printfn "Speler %c wint" (charOfSymbol winner.Value)
-    elif isBoardFull board then
-        printfn "Gelijkspel, helaas jullie zijn veeeel te goed"
-    else
-        failwith "todo"
-
-
+    match winner with
+    | Some s ->
+        printfn "Player %c wins!" (charOfSymbol s)
+    | None ->
+        if isBoardFull board then
+            printfn "Draw game!"
+        else
+            printf "Player %c's turn. Enter a move (1-9): " (charOfSymbol turn)
+            let input = Console.ReadLine()
+            match Int32.TryParse(input) with
+            | (true, move) ->
+                match moveIndexToPosition move with
+                | Some position ->
+                    if isValidMove board position then
+                        let updatedBoard = updateBoard board position turn
+                        let nextTurn = if turn = Cross then Nought else Cross
+                        playGame updatedBoard nextTurn
+                    else
+                        printfn "Invalid move. Please try again."
+                        playGame board turn
+                | None ->
+                    printfn "Invalid move. Please try again."
+                    playGame board turn
+            | _ -> 
+                printfn "Invalid input. Please enter a number between 1 and 9."
+                playGame board turn
 
 playGame initialBoard Symbol.Cross
