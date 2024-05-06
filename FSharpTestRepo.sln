@@ -5,6 +5,8 @@ VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "TickTackToe", "FSharpTestRepo\TickTackToe.fsproj", "{9E32E7C2-97C7-4E88-B628-6A34BDCF6A3D}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Calculator", "Calculator\Calculator.fsproj", "{4B60C0CD-24F0-4A1A-8FF1-0EAFCCF1927F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{9E32E7C2-97C7-4E88-B628-6A34BDCF6A3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E32E7C2-97C7-4E88-B628-6A34BDCF6A3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E32E7C2-97C7-4E88-B628-6A34BDCF6A3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B60C0CD-24F0-4A1A-8FF1-0EAFCCF1927F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B60C0CD-24F0-4A1A-8FF1-0EAFCCF1927F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B60C0CD-24F0-4A1A-8FF1-0EAFCCF1927F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B60C0CD-24F0-4A1A-8FF1-0EAFCCF1927F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

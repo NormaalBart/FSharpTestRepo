@@ -18,3 +18,4 @@ let charOfField (field: Field): char =
     match field with
     | Empty -> ' '
     | Taken symbol -> charOfSymbol symbol
+
